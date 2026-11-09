@@ -3,6 +3,7 @@ import { firebaseConfig } from './firebase-config.js';
 const el = id => document.getElementById(id);
 const dialog = el('auth-dialog');
 let auth, sdk, user = null, busy = false;
+export const getCurrentUser = () => user;
 const messages = {
   'auth/invalid-credential': '이메일 또는 비밀번호를 확인해주세요.',
   'auth/invalid-email': '이메일 주소를 확인해주세요.',
@@ -25,6 +26,8 @@ function renderUser(next) {
   el('account').textContent = user ? (user.isAnonymous ? '익명 플레이어' : user.displayName || user.email || '플레이어') : '';
   el('login-open').textContent = user ? '로그아웃' : '로그인';
   if (user && dialog.open) dialog.close();
+  el('enter-game').disabled = !user;
+  document.dispatchEvent(new CustomEvent('auth-state', {detail:{user}}));
 }
 function setBusy(value) {
   busy = value;
@@ -43,7 +46,7 @@ async function perform(action) {
 
 el('login-open').addEventListener('click', () => {
   if (user) {
-    perform(() => sdk.signOut(auth)).catch(showError);
+    perform(async () => { await sdk.signOut(auth); document.dispatchEvent(new CustomEvent('auth-signed-out')); }).catch(showError);
     return;
   }
   // Pause the game using its existing keyboard control.

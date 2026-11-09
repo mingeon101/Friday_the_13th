@@ -2,7 +2,7 @@
 export const firebaseConfig = {
   apiKey: 'AIzaSyCqeC3wg3CFvBGqr_V3XKC1AJdGO_CVzRE',
   authDomain: 'login-ccf94.firebaseapp.com',
-  databaseURL: 'https://login-ccf94-default-rtdb.firebaseio.com',
+  databaseURL: 'https://database-bb82d-default-rtdb.asia-southeast1.firebasedatabase.app',
   projectId: 'login-ccf94',
   storageBucket: 'login-ccf94.firebasestorage.app',
   messagingSenderId: '931373528371',
