@@ -28,7 +28,7 @@ function renderUser(next) {
 }
 function setBusy(value) {
   busy = value;
-  ['email-login', 'email-signup', 'google-login', 'login-open'].forEach(id => el(id).disabled = value);
+  ['email-login', 'email-signup', 'google-login', 'guest', 'login-open'].forEach(id => el(id).disabled = value);
 }
 async function perform(action) {
   if (busy) return;
